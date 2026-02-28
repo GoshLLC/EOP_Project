@@ -12,6 +12,6 @@
 <p>10. Rename .env.example to .env.</p>
 <p>11. Generate and app key for .env with this command: 'php artisan key:generate'.</p>
 <p>12. Laravel will automatically copy the key into the .env file in 'APP_KEY=' section..</p>
-<p>13. To visist site launch XAMPP, turn APACHE and MySQL on, the visit http:/localhost/laravel-login-system](http://localhost/laravel-login-system/public/home.</p>
+<p>13. To visist site launch XAMPP, turn APACHE and MySQL on, then visit http:/localhost/laravel-login-system](http://localhost/laravel-login-system/public/home.</p>
 
 <p>Guide used for Laravel Login System: https://codeshack.io/login-system-laravel/</p>
