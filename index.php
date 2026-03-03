@@ -48,13 +48,16 @@
             <div class="container px-4 px-lg-5 d-flex h-100 justify-content-center align-items-start" style="padding-top: 5rem;">
                 <div class="w-100" style="max-width: 600px;">
                     
-                    <!-- Search -->
-                    <form action="search.php" method="get" class="d-flex">
+                    <!-- Search: Submit goes to results (minimal=1). Filters button opens full filter form. -->
+                    <form action="search.php?minimal=1" method="get" class="d-flex" id="main-search-form">
                         <input class="form-control me-2" type="search" name="q" placeholder="Search for pets" aria-label="Search">
                         <button class="btn btn-primary rounded-pill ms-2" type="submit">Search</button>
+                        <button class="btn btn-primary btn-sm rounded-pill ms-2" type="button" id="filters-button">Filters</button>
                     </form>
                 </div>
             </div>
-        </header>        
-        </body>
+        </header>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
 </html>

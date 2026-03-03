@@ -1,54 +1,43 @@
 /*!
-* Start Bootstrap - Grayscale v7.0.6 (https://startbootstrap.com/theme/grayscale)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
-*/
-//
-// Scripts
-// 
+ * Start Bootstrap - Grayscale v7.0.6 (https://startbootstrap.com/theme/grayscale)
+ * Copyright 2013-2023 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
+ */
+/**
+ * Global scripts: navbar behavior, scrollspy, Filters button (index search form).
+ */
+window.addEventListener('DOMContentLoaded', () => {
+    const mainNavEl = document.body.querySelector('#mainNav');
 
-window.addEventListener('DOMContentLoaded', event => {
-
-    // Navbar shrink function
-    var navbarShrink = function () {
-        const navbarCollapsible = document.body.querySelector('#mainNav');
-        if (!navbarCollapsible) {
-            return;
-        }
-        if (window.scrollY === 0) {
-            navbarCollapsible.classList.remove('navbar-shrink')
-        } else {
-            navbarCollapsible.classList.add('navbar-shrink')
-        }
-
-    };
-
-    // Shrink the navbar 
+    function navbarShrink() {
+        if (!mainNavEl) return;
+        mainNavEl.classList.toggle('navbar-shrink', window.scrollY > 0);
+    }
     navbarShrink();
-
-    // Shrink the navbar when page is scrolled
     document.addEventListener('scroll', navbarShrink);
 
-    // Activate Bootstrap scrollspy on the main nav element
-    const mainNav = document.body.querySelector('#mainNav');
-    if (mainNav) {
-        new bootstrap.ScrollSpy(document.body, {
-            target: '#mainNav',
-            rootMargin: '0px 0px -40%',
-        });
-    };
+    if (mainNavEl && typeof bootstrap !== 'undefined') {
+        new bootstrap.ScrollSpy(document.body, { target: '#mainNav', rootMargin: '0px 0px -40%' });
+    }
 
-    // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
-    const responsiveNavItems = [].slice.call(
-        document.querySelectorAll('#navbarResponsive .nav-link')
-    );
-    responsiveNavItems.map(function (responsiveNavItem) {
-        responsiveNavItem.addEventListener('click', () => {
-            if (window.getComputedStyle(navbarToggler).display !== 'none') {
+    document.querySelectorAll('#navbarResponsive .nav-link').forEach((link) => {
+        link.addEventListener('click', () => {
+            if (navbarToggler && window.getComputedStyle(navbarToggler).display !== 'none') {
                 navbarToggler.click();
             }
         });
     });
+
+    // Filters button (index.php): go to search page with full filter form, preserving search term
+    const filtersBtn = document.getElementById('filters-button');
+    if (filtersBtn) {
+        filtersBtn.addEventListener('click', () => {
+            const form = document.getElementById('main-search-form');
+            const input = form && form.querySelector('input[name="q"]');
+            const q = (input && input.value) ? input.value : '';
+            window.location.href = q ? 'search.php?q=' + encodeURIComponent(q) : 'search.php';
+        });
+    }
 
 });
