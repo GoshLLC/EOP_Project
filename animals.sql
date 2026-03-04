@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2026 at 11:40 PM
+-- Generation Time: Mar 04, 2026 at 10:08 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,6 +35,7 @@ CREATE TABLE `animals` (
   `age` int(3) DEFAULT NULL,
   `status` varchar(50) NOT NULL,
   `intake_date` date NOT NULL,
+  `location` varchar(50) DEFAULT NULL,
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -42,10 +43,10 @@ CREATE TABLE `animals` (
 -- Dumping data for table `animals`
 --
 
-INSERT INTO `animals` (`id`, `name`, `species`, `breed`, `age`, `status`, `intake_date`, `image`) VALUES
-(1, 'Bella', 'Lab', 'Dog', 3, 'Available', '0000-00-00', 'lab.jpg'),
-(2, 'Rico', 'Cat', '', 2, 'Available', '0000-00-00', 'cat.jpg'),
-(3, 'Nina', 'Dog', 'Shepherd', 4, 'Available', '0000-00-00', 'shepherd.jpg');
+INSERT INTO `animals` (`id`, `name`, `species`, `breed`, `age`, `status`, `intake_date`, `location`, `image`) VALUES
+(1, 'Bella', 'Lab', 'Dog', 3, 'Available', '0000-00-00', 'Elgin', 'lab.jpg'),
+(2, 'Rico', 'Cat', '', 2, 'Available', '0000-00-00', 'Elgin', 'cat.jpg'),
+(3, 'Nina', 'Dog', 'Shepherd', 4, 'Available', '0000-00-00', 'Elgin', 'shepherd.jpg');
 
 --
 -- Indexes for dumped tables
