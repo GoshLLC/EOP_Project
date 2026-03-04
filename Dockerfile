@@ -3,23 +3,9 @@ FROM richarvey/nginx-php-fpm:3.1.6
 COPY . /var/www/html
 
 ENV WEBROOT=/var/www/html/public
-ENV PHP_ERRORS_STDERR=1
-ENV RUN_SCRIPTS=1
-ENV REAL_IP_HEADER=1
-ENV SKIP_COMPOSER=1
-
 ENV APP_ENV=production
 ENV APP_DEBUG=false
-ENV LOG_CHANNEL=stderr
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache || true
-
-COPY www.conf /etc/php/8.2/fpm/pool.d/zz-custom.conf
-
-RUN ln -sf /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf || true
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
 CMD ["/start.sh"]
