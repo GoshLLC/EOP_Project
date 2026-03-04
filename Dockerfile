@@ -1,23 +1,29 @@
-FROM php:8.2-fpm
+FROM richarvey/nginx-php-fpm:3.1.6  # PHP 8.2+ compatible; or use :latest
 
-WORKDIR /var/www
+# Copy your full project
+COPY . /var/www/html
 
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libonig-dev \
-    libzip-dev \
-    zip \
-    && docker-php-ext-install pdo pdo_mysql
+# Env vars (required by the image + good for Laravel prod)
+ENV WEBROOT=/var/www/html/public
+ENV PHP_ERRORS_STDERR=1
+ENV RUN_SCRIPTS=1
+ENV REAL_IP_HEADER=1
+ENV SKIP_COMPOSER=1  # Set to 0 if you want composer install on every start (slower)
 
-COPY . /var/www
+# Laravel production settings
+ENV APP_ENV=production
+ENV APP_DEBUG=false
+ENV LOG_CHANNEL=stderr
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
-EXPOSE 8000
+# Install deps during build
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --prefer-dist
 
-CMD ["php", "artisan", "serve", "--host", "0.0.0.0", "--port", "8000"]
+# Cache configs (speeds up app; || true ignores if no DB yet)
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache || true
+
+# Starts Nginx + PHP-FPM
+CMD ["/start.sh"]
