@@ -5,7 +5,6 @@ COPY . /var/www/html
 ENV WEBROOT=/var/www/html/public
 ENV APP_ENV=production
 ENV APP_DEBUG=false
-
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+ENV SKIP_COMPOSER=1
 
 CMD ["/start.sh"]
