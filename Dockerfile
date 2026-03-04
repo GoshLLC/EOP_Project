@@ -20,4 +20,8 @@ RUN php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache || true
 
+COPY nginx-site.conf /etc/nginx/sites-available/default.conf
+
+RUN ln -sf /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf || true
+
 CMD ["/start.sh"]
