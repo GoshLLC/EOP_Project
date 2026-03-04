@@ -22,7 +22,6 @@ RUN php artisan config:cache \
 
 COPY nginx-site.conf /etc/nginx/sites-available/default.conf
 
-CMD ["/bin/sh", "-c", "echo '=== SOCKET FILES ===' && ls -la /run /var/run /run/php* /var/run/php* 2>/dev/null | grep sock || echo 'No .sock files found' && echo '=== PHP-FPM LISTEN CONFIG ===' && grep -Ri 'listen =' /usr/local/etc/php-fpm* /etc/php* 2>/dev/null || echo 'No listen config found' && exec /start.sh"]
-#RUN ln -sf /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf || true
+RUN ln -sf /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf || true
 
 CMD ["/start.sh"]
